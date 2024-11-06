@@ -2,6 +2,6 @@ services:
   whodb:
     image: clidey/whodb:0.42.0
     volumes:
-      - ./db:/db
+      - ./volumes:/db
     ports:
       - "3366:8080"

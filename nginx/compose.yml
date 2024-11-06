@@ -7,5 +7,6 @@ services:
     ports:
       - '80:80'
     volumes:
+      - ./extra:/etc/nginx/extra:ro
       - ./conf.d:/etc/nginx/conf.d:ro
       - ./html:/usr/share/nginx/html:ro
