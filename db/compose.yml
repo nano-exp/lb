@@ -2,6 +2,6 @@ services:
   whodb:
     image: clidey/whodb:0.42.0
     volumes:
-      - ./qcloud.db:/db/qcloud.db
+      - ./db:/db
     ports:
       - "3366:8080"
