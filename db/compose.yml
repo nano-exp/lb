@@ -4,4 +4,4 @@ services:
     volumes:
       - ./volumes:/db
     ports:
-      - "3366:8080"
+      - "127.0.0.1:3366:8080"
