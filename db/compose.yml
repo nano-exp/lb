@@ -1,7 +1,7 @@
 services:
   whodb:
-    image: clidey/whodb:0.42.0
+    image: nocodb/nocodb:0.257.2
     volumes:
-      - ./volumes:/db
+      - ./volumes:/usr/app/data/ 
     ports:
       - "127.0.0.1:3366:8080"
