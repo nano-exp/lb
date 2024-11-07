@@ -1,6 +1,8 @@
 services:
-  whodb:
+  nocodb:
     image: nocodb/nocodb:0.257.2
+    container_name: nocodb
+    restart: always
     volumes:
       - ./volumes:/usr/app/data/ 
     ports:
