@@ -3,3 +3,8 @@
 .env
 htpasswd
 volumes/ 
+# nginx
+nginx/html/*
+!nginx/html/50x.html
+!nginx/html/favicon.ico
+!nginx/html/index.html
