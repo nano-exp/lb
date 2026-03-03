@@ -77,7 +77,10 @@ opencode.nano-exp.com:80 {
 				redir https://auth.nano-exp.com/login?redirect={scheme}://{host}{uri}
 			}
 		}
-		header Content-Security-Policy "(script-src [^;]*)" "${1} https://static.cloudflareinsights.com"
+		header {
+			Content-Security-Policy "(script-src [^;]*)" "${1} https://static.cloudflareinsights.com"
+			defer
+		}
 		reverse_proxy 127.0.0.1:4096 {
 			header_up Host {host}
 			header_up X-Real-IP {remote}
