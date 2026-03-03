@@ -1,0 +1,115 @@
+{
+    auto_https disable_redirects
+}
+
+:80 {
+    root * ./html
+    file_server
+    handle_errors 500 502 503 504 {
+        rewrite * /50x.html
+        file_server
+    }
+}
+
+auth.nano-exp.com:80 {
+    reverse_proxy 127.0.0.1:3500 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+ineffa.nano-exp.com:80 {
+    reverse_proxy 127.0.0.1:3000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+oc.nano-exp.com:80 {
+    reverse_proxy 127.0.0.1:18789 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+nano-exp.com:80, www.nano-exp.com:80 {
+    reverse_proxy 127.0.0.1:3000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+s.nano-exp.com:80, static.nano-exp.com:80 {
+    root * ./html
+    file_server
+    try_files {path} {path}/index.html index.html
+}
+
+frp.nano-exp.com:80 {
+    handle {
+        forward_auth 127.0.0.1:3500 {
+            uri /api/protected
+            header_up Host auth.nano-exp.com
+            header_up X-Original-URI {scheme}://{host}{uri}
+            @error status 401 403
+            handle_response @error {
+                redir https://auth.nano-exp.com/login?redirect={scheme}://{host}{uri}
+            }
+        }
+        reverse_proxy 127.0.0.1:5500 {
+            header_up Host {host}
+            header_up X-Real-IP {remote}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+}
+
+opencode.nano-exp.com:80 {
+    handle {
+        forward_auth 127.0.0.1:3500 {
+            uri /api/protected
+            header_up Host auth.nano-exp.com
+            header_up X-Original-URI {scheme}://{host}{uri}
+            @error status 401 403
+            handle_response @error {
+                redir https://auth.nano-exp.com/login?redirect={scheme}://{host}{uri}
+            }
+        }
+        reverse_proxy 127.0.0.1:4096 {
+            header_up Host {host}
+            header_up X-Real-IP {remote}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+}
+
+*.nano-exp.com:80 {
+    @port_range host regexp ^7[0-4][0-9][0-9]\.nano-exp\.com$
+    handle @port_range {
+        forward_auth 127.0.0.1:3500 {
+            uri /api/protected
+            header_up Host auth.nano-exp.com
+            header_up X-Original-URI {scheme}://{host}{uri}
+            @error status 401 403
+            handle_response @error {
+                redir https://auth.nano-exp.com/login?redirect={scheme}://{host}{uri}
+            }
+        }
+        reverse_proxy 127.0.0.1:{labels.1} {
+            header_up Host {host}
+            header_up X-Real-IP {remote}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+}
