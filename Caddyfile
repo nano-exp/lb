@@ -5,10 +5,6 @@
 :80 {
 	root * ./html
 	file_server
-	handle_errors 500 502 503 504 {
-		rewrite * /50x.html
-		file_server
-	}
 }
 
 auth.nano-exp.com:80 {

@@ -1,5 +1,4 @@
 .idea/
 .DS_Store
 html/*
-!html/50x.html
 !html/favicon.ico
