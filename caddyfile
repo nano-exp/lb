@@ -108,7 +108,7 @@ opencode.nano-exp.com:80 {
 
 # pai.mn
 
-pai.mn:80 {
+www.pai.mn:80, pai.mn:80 {
 	reverse_proxy 127.0.0.1:3300 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
