@@ -14,7 +14,7 @@ auth.nano-exp.com:80 {
 	}
 }
 
-ineffa.nano-exp.com:80 {
+i.nano-exp.com:80, ineffa.nano-exp.com:80 {
 	reverse_proxy 127.0.0.1:3000 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
