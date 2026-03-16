@@ -98,7 +98,7 @@ pai.mn:80, www.pai.mn:80 {
 }
 
 ai.pai.mn:80 {
-	reverse_proxy 127.0.0.1:4080 {
+	reverse_proxy 127.0.0.1:5090 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
