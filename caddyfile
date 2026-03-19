@@ -7,49 +7,49 @@
 	file_server
 }
 
-auth.nano-exp.com:80 {
+auth.nano.properties:80 {
 	reverse_proxy 127.0.0.1:3500 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-i.nano-exp.com:80, ineffa.nano-exp.com:80 {
+i.nano.properties:80, ineffa.nano.properties:80 {
 	reverse_proxy 127.0.0.1:3000 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-oc.nano-exp.com:80 {
+claw.nano.properties:80 {
 	reverse_proxy 127.0.0.1:18789 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-nano-exp.com:80, www.nano-exp.com:80 {
+nano.properties:80, www.nano.properties:80 {
 	reverse_proxy 127.0.0.1:3000 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-s.nano-exp.com:80, static.nano-exp.com:80 {
+s.nano.properties:80, static.nano.properties:80 {
 	root * ./html
 	file_server
 	try_files {path} {path}/index.html index.html
 }
 
-tun.nano-exp.com:80 {
+tun.nano.properties:80 {
 	handle {
 		forward_auth 127.0.0.1:3500 {
 			uri /api/protected
-			header_up Host auth.nano-exp.com
+			header_up Host auth.nano.properties
 			header_up X-Original-URI {scheme}://{host}{uri}
 			@error status 401 403
 			handle_response @error {
-				redir https://auth.nano-exp.com/login?redirect={scheme}://{host}{uri}
+				redir https://auth.nano.properties/login?redirect={scheme}://{host}{uri}
 			}
 		}
 		reverse_proxy 127.0.0.1:5500 {
@@ -59,7 +59,7 @@ tun.nano-exp.com:80 {
 	}
 }
 
-opencode.nano-exp.com:80 {
+code.nano.properties:80 {
 	@bypass path /pty/* /site.webmanifest
 	handle @bypass {
 		reverse_proxy 127.0.0.1:4096 {
@@ -70,11 +70,11 @@ opencode.nano-exp.com:80 {
 	handle {
 		forward_auth 127.0.0.1:3500 {
 			uri /api/protected
-			header_up Host auth.nano-exp.com
+			header_up Host auth.nano.properties
 			header_up X-Original-URI {scheme}://{host}{uri}
 			@error status 401 403
 			handle_response @error {
-				redir https://auth.nano-exp.com/login?redirect={scheme}://{host}{uri}
+				redir https://auth.nano.properties/login?redirect={scheme}://{host}{uri}
 			}
 		}
 
@@ -86,7 +86,7 @@ opencode.nano-exp.com:80 {
 	}
 }
 
-openclaw-2026.nano-exp.com:80 {
+openclaw-2026.nano.properties:80 {
 	redir https://pai-mn.github.io/openclaw-2026{uri} 308
 }
 
