@@ -100,6 +100,13 @@ ai.pai.mn:80 {
 	}
 }
 
+tokenai.dev:80, www.tokenai.dev:80 {
+	reverse_proxy 127.0.0.1:6200 {
+		header_up Host {host}
+		header_up X-Real-IP {remote}
+	}
+}
+
 # legacy redirect
 openclaw-2026.nano-exp.com:80 {
 	redir https://pai-mn.github.io/openclaw-2026{uri} 308
