@@ -107,7 +107,7 @@ tokenai.dev:80, www.tokenai.dev:80 {
 	}
 }
 
-sp.nano.properties:80 {
+sp.nano.properties {
 	reverse_proxy 127.0.0.1:1088 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
