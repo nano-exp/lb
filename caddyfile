@@ -115,6 +115,6 @@ sp.nano.properties {
 }
 
 # legacy redirect
-openclaw-2026.nano-exp.com:80 {
+openclaw-2026.nano-exp.com {
 	redir https://pai-mn.github.io/openclaw-2026{uri} 308
 }
