@@ -2,46 +2,46 @@
 	auto_https disable_redirects
 }
 
-:80 {
+:443 {
 	root * ./html
 	file_server
 }
 
-auth.nano.properties:80 {
+auth.nano.properties {
 	reverse_proxy 127.0.0.1:3500 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-i.nano.properties:80, ineffa.nano.properties:80 {
+i.nano.properties, ineffa.nano.properties {
 	reverse_proxy 127.0.0.1:3000 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-claw.nano.properties:80 {
+claw.nano.properties {
 	reverse_proxy 127.0.0.1:18789 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-nano.properties:80, www.nano.properties:80 {
+nano.properties, www.nano.properties {
 	reverse_proxy 127.0.0.1:3000 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-s.nano.properties:80, static.nano.properties:80 {
+s.nano.properties, static.nano.properties {
 	root * ./html
 	file_server
 	try_files {path} {path}/index.html index.html
 }
 
-tun.nano.properties:80 {
+tun.nano.properties {
 	handle {
 		forward_auth 127.0.0.1:3500 {
 			uri /api/protected
@@ -59,7 +59,7 @@ tun.nano.properties:80 {
 	}
 }
 
-code.nano.properties:80 {
+code.nano.properties {
 	@bypass path /pty/* /site.webmanifest
 	handle @bypass {
 		reverse_proxy 127.0.0.1:4096 {
@@ -86,21 +86,21 @@ code.nano.properties:80 {
 	}
 }
 
-pai.mn:80, www.pai.mn:80 {
+pai.mn, www.pai.mn {
 	reverse_proxy 127.0.0.1:3300 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-ai.pai.mn:80 {
+ai.pai.mn {
 	reverse_proxy 127.0.0.1:5090 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
 	}
 }
 
-tokenai.dev:80, www.tokenai.dev:80 {
+tokenai.dev, www.tokenai.dev {
 	reverse_proxy 127.0.0.1:6200 {
 		header_up Host {host}
 		header_up X-Real-IP {remote}
