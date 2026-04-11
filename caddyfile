@@ -1,3 +1,7 @@
+nano.properties, www.nano.properties {
+	redir https://s.nano.properties 302
+}
+
 auth.nano.properties {
 	reverse_proxy 127.0.0.1:3500 {
 		header_up Host {host}
@@ -14,13 +18,6 @@ i.nano.properties, ineffa.nano.properties {
 
 claw.nano.properties {
 	reverse_proxy 127.0.0.1:18789 {
-		header_up Host {host}
-		header_up X-Real-IP {client_ip}
-	}
-}
-
-nano.properties, www.nano.properties {
-	reverse_proxy 127.0.0.1:3000 {
 		header_up Host {host}
 		header_up X-Real-IP {client_ip}
 	}
